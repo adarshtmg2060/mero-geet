@@ -1,4 +1,4 @@
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -59,7 +59,7 @@ function AppRoutes() {
           <Route path="/forgotPassword" element={<Forgot />} />
           <Route path="/resetPassword/:id" element={<Reset />} />
           <Route path="*" element={<Navigate to="/login" />} />
-           {/* <Route path="*" element={<Loading main={true} fullHeight={true} />} /> */}
+          {/* <Route path="*" element={<Loading main={true} fullHeight={true} />} /> */}
         </Routes>
       )}
 

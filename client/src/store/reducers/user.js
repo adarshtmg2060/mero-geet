@@ -24,6 +24,7 @@ export const userSlice = createSlice({
     data: {},
     auth: false,
     loading: false,
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -46,6 +47,7 @@ export const userSlice = createSlice({
       // Sign up
       .addCase(signupUser.pending, (state) => {
         state.loading = true;
+        state.error = false;
       })
       .addCase(signupUser.fulfilled, (state, action) => {
         state.data = action.payload.data;
@@ -54,7 +56,7 @@ export const userSlice = createSlice({
       })
       .addCase(signupUser.rejected, (state, action) => {
         state.loading = false;
-
+        state.error = action.payload;
         toast.error(action.payload.response.data.message);
       })
 

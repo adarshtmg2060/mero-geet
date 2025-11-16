@@ -16,14 +16,20 @@ process.on('uncaughtException', (err) => {
 
 const app = require('./app');
 
-const DB = "mongodb://127.0.0.1:27017/spotify-clone-test";
-mongoose.connect(DB).then(() => {
-  console.log(chalk.hex('#78dce8').bold('DATABASE CONNECTION SUCCESSFUL'));
-});
-
+const DB = process.env.MONGODB_URI;
+mongoose
+  .connect(DB)
+  .then(() => {
+    console.log(chalk.hex('#78dce8').bold('DATABASE CONNECTION SUCCESSFUL'));
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 const server = app.listen(process.env.PORT || 8000, () => {
   console.log(
-    chalk.hex('#78dce8').bold(`LISTENING ON PORT ${process.env.PORT}`)
+    chalk
+      .hex('#78dce8')
+      .bold(`LISTENING ON PORT http://localhost:${process.env.PORT}`)
   );
 });
 

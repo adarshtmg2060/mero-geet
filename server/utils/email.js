@@ -10,21 +10,21 @@ module.exports = class Email {
   newTransport() {
     return nodemailer.createTransport({
       service: 'gmail',
-      host: process.env.SMPT_SERVER,
-      port: process.env.SMPT_PORT,
+      host: 'smtp.gmail.com',
+      port: '587',
       secure: true,
       logger: true,
       secureConnection: false,
       auth: {
-        user: process.env.BREVO_USER,
-        pass: process.env.BREVO_PASS,
+        user: 'adarshtmg2060@gmail.com',
+        pass: 'utjl yubo xgiq zqrh',
       },
     });
   }
 
   async send(subject, html) {
     const mailOptions = {
-      from: process.env.BREVO_USER,
+      from: 'adarshtmg2060@gmail.com',
       to: this.to,
       subject,
       html,

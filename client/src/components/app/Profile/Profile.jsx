@@ -9,7 +9,7 @@ import {
 import { useRef } from "react";
 import Button from "../../UI/Button";
 import Input from "../../UI/Input";
-import {RiLogoutBoxLine} from "react-icons/ri";
+import { RiLogoutBoxLine } from "react-icons/ri";
 
 const Profile = () => {
   const user = useSelector((state) => state.user.data);
@@ -22,6 +22,12 @@ const Profile = () => {
     e.preventDefault();
 
     const formData = new FormData(formInfoRef.current);
+
+    // // Show all form data
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(key, value);
+    // }
+    // console.log("click");
 
     dispatch(updateUser(formData));
   };

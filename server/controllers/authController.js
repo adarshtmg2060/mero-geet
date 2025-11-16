@@ -7,10 +7,13 @@ const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const Email = require('../utils/email');
 
-const signToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_SECRET, {
+const JWT_SECRET = 'mysecurekey';
+
+const signToken = (id) => {
+  jwt.sign({ id }, JWT_SECRET, {
     expiresIn: '30d',
   });
+};
 
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user.id);
@@ -41,7 +44,6 @@ exports.signUp = catchAsync(async (req, res, next) => {
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm,
   };
-  
 
   const user = await User.create(userData);
 
@@ -76,7 +78,7 @@ exports.login = catchAsync(async (req, res, next) => {
   createSendToken(user, 200, req, res);
 });
 
-exports.logout = catchAsync(async (req, res, next) => {
+exports.logout = catchAsync(async (req, res) => {
   const cookieOptions = {
     expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
     httpOnly: true,
@@ -106,7 +108,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
 
-  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+  const decoded = await promisify(jwt.verify)(token, JWT_SECRET);
 
   const user = await User.findById(decoded.id);
   if (!user) {
@@ -134,10 +136,7 @@ exports.protect = catchAsync(async (req, res, next) => {
 exports.isLoggedIn = catchAsync(async (req, res, next) => {
   try {
     if (req.cookies.jwt) {
-      const decoded = await promisify(jwt.verify)(
-        req.cookies.jwt,
-        process.env.JWT_SECRET
-      );
+      const decoded = await promisify(jwt.verify)(req.cookies.jwt, JWT_SECRET);
 
       const user = await User.findById(decoded.id)
         .populate('playlists')

@@ -18,7 +18,7 @@ export const loginUser = createAsyncThunk(
       console.log(err);
       return rejectWithValue(err);
     }
-  },
+  }
 );
 
 export const signupUser = createAsyncThunk(
@@ -32,13 +32,15 @@ export const signupUser = createAsyncThunk(
         passwordConfirm,
       });
 
-      toast.success("Welcome to spotify!");
-
+      toast.success("Welcome to Spotify!");
       return { data: res.data.data.user, auth: true };
     } catch (err) {
-      return rejectWithValue(err);
+      const message =
+        err.response?.data?.message || "Signup failed. Please try again.";
+      toast.error(message);
+      return rejectWithValue(message);
     }
-  },
+  }
 );
 
 export const isLoggedIn = createAsyncThunk(
@@ -53,15 +55,16 @@ export const isLoggedIn = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err);
     }
-  },
+  }
 );
 
 export const updateUser = createAsyncThunk("user/updateUser", async (data) => {
   try {
     const res = await axios.patch("/users/updateMe", data);
+    console.log(res);
 
-    toast.success("Your data updated ");
-    return res.data.data;
+    // toast.success("Your data updated ");
+    // return res.data.data;
   } catch (err) {
     throw err;
   }
@@ -77,7 +80,7 @@ export const forgotPassword = createAsyncThunk(
     } catch (err) {
       toast.error(err.response.data.message);
     }
-  },
+  }
 );
 
 export const resetPassword = createAsyncThunk(
@@ -92,7 +95,7 @@ export const resetPassword = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err);
     }
-  },
+  }
 );
 
 export const updatePassword = createAsyncThunk(
@@ -105,7 +108,7 @@ export const updatePassword = createAsyncThunk(
     } catch (err) {
       toast.error(err.response.data.message);
     }
-  },
+  }
 );
 
 export const logoutUser = createAsyncThunk("user/logoutUser", async () => {
@@ -159,7 +162,7 @@ export const followArtist = createAsyncThunk(
     } catch (err) {
       throw err;
     }
-  },
+  }
 );
 
 export const unfollowArtist = createAsyncThunk(
@@ -174,7 +177,7 @@ export const unfollowArtist = createAsyncThunk(
     } catch (err) {
       throw err;
     }
-  },
+  }
 );
 
 export const becomeArtist = createAsyncThunk("user/becomeArtist", async () => {
@@ -198,7 +201,7 @@ export const getAllPlaylists = createAsyncThunk(
     } catch (err) {
       throw err;
     }
-  },
+  }
 );
 
 // Playlist
@@ -214,7 +217,7 @@ export const createPlaylist = createAsyncThunk(
     } catch (err) {
       throw err;
     }
-  },
+  }
 );
 
 export const deletePlaylist = createAsyncThunk(
@@ -228,5 +231,5 @@ export const deletePlaylist = createAsyncThunk(
     } catch (err) {
       throw err;
     }
-  },
+  }
 );
