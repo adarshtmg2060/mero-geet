@@ -61,10 +61,9 @@ export const isLoggedIn = createAsyncThunk(
 export const updateUser = createAsyncThunk("user/updateUser", async (data) => {
   try {
     const res = await axios.patch("/users/updateMe", data);
-    console.log(res);
 
-    // toast.success("Your data updated ");
-    // return res.data.data;
+    toast.success("Your data updated ");
+    return res.data.data;
   } catch (err) {
     throw err;
   }

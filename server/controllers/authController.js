@@ -9,11 +9,7 @@ const Email = require('../utils/email');
 
 const JWT_SECRET = 'mysecurekey';
 
-const signToken = (id) => {
-  jwt.sign({ id }, JWT_SECRET, {
-    expiresIn: '30d',
-  });
-};
+const signToken = (id) => jwt.sign({ id }, JWT_SECRET, { expiresIn: '30d' });
 
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user.id);

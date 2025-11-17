@@ -20,9 +20,9 @@ router.patch(
 );
 router.patch(
   '/updateMe',
-  // authController.protect,
-  // userController.uploadPhoto,
-  // userController.resizeUserImg,
+  authController.protect,
+  userController.uploadPhoto,
+  userController.resizeUserImg,
   userController.updateMe
 );
 router.delete('/deleteMe', authController.protect, authController.deleteMe);

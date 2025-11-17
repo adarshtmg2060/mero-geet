@@ -23,12 +23,6 @@ const Profile = () => {
 
     const formData = new FormData(formInfoRef.current);
 
-    // // Show all form data
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(key, value);
-    // }
-    // console.log("click");
-
     dispatch(updateUser(formData));
   };
 

@@ -37,6 +37,10 @@ app.use('/api/v1/users', userRouter);
 app.use('/api/v1/playlists', playlistRouter);
 app.use('/api/v1/search', searchRouter);
 
+app.get('/api/v1/user', (req, res) => {
+  res.send('testing base rounte');
+});
+
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server`, 404));
 });
