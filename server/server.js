@@ -12,7 +12,8 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-const DB = config.MONGODB_URI;
+const DB =
+  'mongodb+srv://adarshtmg2060:HzjVXrsldfYEjOnE@cluster0.dwaluns.mongodb.net/mero-geet';
 
 // Connect to DB FIRST, then start server
 async function startServer() {
