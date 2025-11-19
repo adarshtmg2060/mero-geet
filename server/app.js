@@ -4,6 +4,8 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const AppError = require('./utils/appError');
 const globalErrorHandler = require('./controllers/errorController');
@@ -16,7 +18,7 @@ const config = require('./config/app.config');
 const app = express();
 
 const FRONTEND_ORIGIN =
-  config.NODE_ENV === 'development'
+  process.env.NODE_ENV === 'development'
     ? 'http://localhost:5173'
     : 'https://mero-geet-dhwm.vercel.app';
 
