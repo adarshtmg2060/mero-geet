@@ -3,7 +3,7 @@ import axios from "axios";
 export default axios.create({
   baseURL:
     import.meta.env.MODE === "development"
-      ? import.meta.env.VITE_BACKEND_BASE_URL
-      : "",
+      ? "http://localhost:8080/api/v1"
+      : "https://mero-geet.vercel.app/api/v1",
   withCredentials: true,
 });
