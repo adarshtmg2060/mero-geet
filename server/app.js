@@ -18,7 +18,7 @@ const app = express();
 const FRONTEND_ORIGIN =
   config.NODE_ENV === 'development'
     ? 'http://localhost:5173'
-    : 'https://mero-geet-dhwm.vercel.app/login';
+    : 'https://mero-geet-dhwm.vercel.app';
 
 app.use(
   cors({
