@@ -1,7 +1,8 @@
 const chalk = require('chalk');
+
 const mongoose = require('mongoose');
+
 const config = require('./config/app.config');
-const app = require('./app');
 
 // Uncaught Exception
 process.on('uncaughtException', (err) => {
@@ -9,41 +10,36 @@ process.on('uncaughtException', (err) => {
   console.log(
     chalk.hex('#ff6188').bold('UNHANDLED EXCEPTION! 💥 Shutting down...')
   );
+
   process.exit(1);
 });
 
-const DB =
-  'mongodb+srv://adarshtmg2060:HzjVXrsldfYEjOnE@cluster0.dwaluns.mongodb.net/mero-geet';
+const app = require('./app');
 
-// Connect to DB FIRST, then start server
-async function startServer() {
-  try {
-    await mongoose.connect(DB);
+const DB = config.MONGODB_URI;
+mongoose
+  .connect(DB)
+  .then(() => {
     console.log(chalk.hex('#78dce8').bold('DATABASE CONNECTION SUCCESSFUL'));
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 
-    const server = app.listen(config.PORT || 8000, () => {
-      console.log(
-        chalk
-          .hex('#78dce8')
-          .bold(`LISTENING ON PORT http://localhost:${config.PORT}`)
-      );
-    });
+const server = app.listen(config.PORT || 8000, () => {
+  console.log(
+    chalk
+      .hex('#78dce8')
+      .bold(`LISTENING ON PORT http://localhost:${config.PORT}`)
+  );
+});
 
-    // Handle unhandled rejections
-    process.on('unhandledRejection', (err) => {
-      console.log(err.name, err.message);
-      console.log(
-        chalk.hex('#ff6188').bold('UNHANDLED REJECTION! 💥 Shutting down...')
-      );
-      server.close(() => {
-        process.exit(1);
-      });
-    });
-  } catch (err) {
-    console.log(chalk.hex('#ff6188').bold('DATABASE CONNECTION FAILED 💥'));
-    console.error(err);
+process.on('unhandledRejection', (err) => {
+  console.log(err.name, err.message);
+  console.log(
+    chalk.hex('#ff6188').bold('UNHANDLED REJECTION! 💥 Shutting down...')
+  );
+  server.close(() => {
     process.exit(1);
-  }
-}
-
-startServer();
+  });
+});

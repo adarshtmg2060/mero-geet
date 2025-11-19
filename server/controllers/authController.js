@@ -8,7 +8,7 @@ const AppError = require('../utils/appError');
 const Email = require('../utils/email');
 const config = require('../config/app.config');
 
-const JWT_SECRET_CODE = 'mysecurekey';
+const JWT_SECRET_CODE = config.JWT_SECRET;
 
 const signToken = (id) =>
   jwt.sign({ id }, JWT_SECRET_CODE, { expiresIn: '30d' });
