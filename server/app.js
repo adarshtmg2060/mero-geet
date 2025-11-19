@@ -20,8 +20,6 @@ const FRONTEND_ORIGIN =
     ? 'http://localhost:5173'
     : config.FRONTEND_URL;
 
-console.log(FRONTEND_ORIGIN);
-
 app.use(
   cors({
     origin: FRONTEND_ORIGIN,

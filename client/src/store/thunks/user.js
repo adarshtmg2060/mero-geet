@@ -6,10 +6,14 @@ export const loginUser = createAsyncThunk(
   "user/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const res = await axios.post("/users/login", {
-        email,
-        password,
-      });
+      const res = await axios.post(
+        "/users/login",
+        {
+          email,
+          password,
+        },
+        { withCredentials: true }
+      );
 
       toast.success("Logged in successfully");
 
