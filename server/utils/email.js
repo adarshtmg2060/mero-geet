@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const templates = require('./templates');
+const config = require('../config/app.config');
 
 module.exports = class Email {
   constructor(user) {
@@ -10,21 +11,21 @@ module.exports = class Email {
   newTransport() {
     return nodemailer.createTransport({
       service: 'gmail',
-      host: 'smtp.gmail.com',
-      port: '587',
+      host: config.SMPT_SERVER,
+      port: config.SMPT_PORT,
       secure: true,
       logger: true,
       secureConnection: false,
       auth: {
-        user: 'adarshtmg2060@gmail.com',
-        pass: 'utjl yubo xgiq zqrh',
+        user: config.BREVO_USER,
+        pass: config.BREVO_PASS,
       },
     });
   }
 
   async send(subject, html) {
     const mailOptions = {
-      from: 'adarshtmg2060@gmail.com',
+      from: config.BREVO_USER,
       to: this.to,
       subject,
       html,

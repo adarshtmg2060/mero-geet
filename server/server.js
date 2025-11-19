@@ -1,8 +1,8 @@
 const chalk = require('chalk');
-const dotenv = require('dotenv');
+
 const mongoose = require('mongoose');
 
-dotenv.config({ path: './.env' });
+const config = require('./config/app.config');
 
 // Uncaught Exception
 process.on('uncaughtException', (err) => {
@@ -16,7 +16,7 @@ process.on('uncaughtException', (err) => {
 
 const app = require('./app');
 
-const DB = process.env.MONGODB_URI;
+const DB = config.MONGODB_URI;
 mongoose
   .connect(DB)
   .then(() => {
@@ -25,11 +25,12 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-const server = app.listen(process.env.PORT || 8000, () => {
+
+const server = app.listen(config.PORT || 8000, () => {
   console.log(
     chalk
       .hex('#78dce8')
-      .bold(`LISTENING ON PORT http://localhost:${process.env.PORT}`)
+      .bold(`LISTENING ON PORT http://localhost:${config.PORT}`)
   );
 });
 

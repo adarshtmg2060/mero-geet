@@ -11,15 +11,20 @@ const songRouter = require('./routes/songRoutes');
 const userRouter = require('./routes/userRoutes');
 const playlistRouter = require('./routes/playlistRoutes');
 const searchRouter = require('./routes/searchRoutes');
+const config = require('./config/app.config');
 
 const app = express();
 
+const FRONTEND_ORIGIN =
+  config.NODE_ENV === 'development'
+    ? 'http://localhost:5173'
+    : config.FRONTEND_URL;
+
+console.log(FRONTEND_ORIGIN);
+
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === 'development'
-        ? 'http://localhost:5173'
-        : 'http://localhost:5173',
+    origin: FRONTEND_ORIGIN,
     credentials: true,
   })
 );

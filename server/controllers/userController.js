@@ -3,13 +3,14 @@ const catchAsync = require('../utils/catchAsync');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const sharp = require('sharp');
-const ImageKit = require('imagekit');
+// const ImageKit = require('imagekit');
+const imagekit = require('../utils/ImageKit');
 
-const imagekit = new ImageKit({
-  publicKey: 'public_QuzReYxl6DVYjxyHiIcfQwjKfAE=',
-  privateKey: 'private_+3VQGpqwZnZpoECr8RB3jiDLvWw=',
-  urlEndpoint: 'https://ik.imagekit.io/nwy9pgnpz/',
-});
+// const imagekit = new ImageKit({
+//   publicKey: 'public_QuzReYxl6DVYjxyHiIcfQwjKfAE=',
+//   privateKey: 'private_+3VQGpqwZnZpoECr8RB3jiDLvWw=',
+//   urlEndpoint: 'https://ik.imagekit.io/nwy9pgnpz/',
+// });
 
 const storage = multer.memoryStorage();
 

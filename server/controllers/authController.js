@@ -6,10 +6,12 @@ const catchAsync = require('../utils/catchAsync');
 const User = require('../models/userModel');
 const AppError = require('../utils/appError');
 const Email = require('../utils/email');
+const config = require('../config/app.config');
 
-const JWT_SECRET = 'mysecurekey';
+const JWT_SECRET_CODE = config.JWT_SECRET;
 
-const signToken = (id) => jwt.sign({ id }, JWT_SECRET, { expiresIn: '30d' });
+const signToken = (id) =>
+  jwt.sign({ id }, JWT_SECRET_CODE, { expiresIn: '30d' });
 
 const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user.id);
@@ -104,7 +106,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     );
   }
 
-  const decoded = await promisify(jwt.verify)(token, JWT_SECRET);
+  const decoded = await promisify(jwt.verify)(token, JWT_SECRET_CODE);
 
   const user = await User.findById(decoded.id);
   if (!user) {
@@ -132,7 +134,10 @@ exports.protect = catchAsync(async (req, res, next) => {
 exports.isLoggedIn = catchAsync(async (req, res, next) => {
   try {
     if (req.cookies.jwt) {
-      const decoded = await promisify(jwt.verify)(req.cookies.jwt, JWT_SECRET);
+      const decoded = await promisify(jwt.verify)(
+        req.cookies.jwt,
+        JWT_SECRET_CODE
+      );
 
       const user = await User.findById(decoded.id)
         .populate('playlists')
